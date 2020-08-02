@@ -5,6 +5,8 @@ from abc import ABC
 from math import sqrt
 from collections import Counter
 
+from .metrics import accuracy_score
+
 
 @dataclass()
 class KNNAbstract(ABC):
@@ -37,3 +39,8 @@ class KNNClassifier(KNNAbstract):
         votes = Counter(topK_y)
 
         return votes.most_common(1)[0][0]
+
+    def score(self, X_test, y_test):
+        """ score """
+        y_predict = self.predict(X_test)
+        return accuracy_score(y_test, y_predict)
